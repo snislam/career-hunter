@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "name": "One on One Coaching",
+        "price": 49,
+        "img": "https://i.ibb.co/TKDCG0R/service-1.jpg",
+        "description": "Coaching is a form of development in which an experienced person, called a coach, supports a learner or client in achieving ."
+    },
+    {
+        "id": 2,
+        "name": "Career Analysis",
+        "price": 79,
+        "img": "https://i.ibb.co/PhWrW3d/service-2.jpg",
+        "description": "Coaching starts by declaring a powerful future. Coaching is a form of development in which an experienced person guidance."
+    },
+    {
+        "id": 3,
+        "name": "Balanced Body & Mind",
+        "price": 99,
+        "img": "https://i.ibb.co/7GxHY4D/service-3.jpg",
+        "description": "The form of development in which an experienced person, called a coach, client in achieving a specific personal or professional."
+    }
+]
