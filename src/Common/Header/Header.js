@@ -10,6 +10,8 @@ const Header = () => {
                 <img src={logo} alt="" />
                 <menu>
                     <Link className='hover:text-blue-600' to='/'>Home</Link>
+                    <Link className='hover:text-blue-600' to='/about'>About Me</Link>
+                    <Link className='hover:text-blue-600' to='/contact'>Contact</Link>
                     <Link className='hover:text-blue-600' to='/login'>Login</Link>
                 </menu>
             </nav>
