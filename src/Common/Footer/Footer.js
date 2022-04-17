@@ -4,7 +4,7 @@ import './Footer.css';
 const Footer = () => {
     return (
         <div>
-            <h2>Footer</h2>
+            <p>Copyright @ Najmul {new Date().getFullYear()}</p>
         </div>
     );
 };
