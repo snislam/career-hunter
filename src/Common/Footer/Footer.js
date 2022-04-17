@@ -23,7 +23,7 @@ const Footer = () => {
                     <p>Mobile: 01303-164150</p>
                 </div>
             </div>
-            <p className='text-center mt-5 bg-slate-900 py-2'>Copyright @ Najmul {new Date().getFullYear()}</p>
+            <p className='text-center mt-10 bg-slate-900 py-2'>Copyright &copy; Najmul {new Date().getFullYear()}</p>
         </div>
     );
 };

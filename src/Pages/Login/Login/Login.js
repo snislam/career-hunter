@@ -1,6 +1,7 @@
 import React from 'react';
 import './Login.css';
 import google from '../../../images/google.png';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     return (
@@ -14,9 +15,9 @@ const Login = () => {
                     <label className='font-semibold my-3' htmlFor="password">Password</label>
                     <input className='border block w-full py-2 px-3' type="password" name="password" id="password" placeholder='Password' required />
 
-                    <p></p>
+                    <p className='mt-5'>New in Career Hunter? <Link className='text-blue-500' to='/register' >Register Now</Link></p>
 
-                    <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700' type="submit" value="Login" />
+                    <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700 cursor-pointer' type="submit" value="Login" />
                 </form>
                 <div className='flex justify-center items-center my-5'>
                     <div className='divider'></div>
