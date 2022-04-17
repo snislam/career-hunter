@@ -12,3 +12,35 @@
 .text-info {
     width: 50%;
 }
+
+@media only screen and (max-width: 576px) {
+    .hero-banner {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .overlay {
+        width: 100%;
+        height: 50vh;
+    }
+
+    .text-info {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .text-info {
+        width: 70%;
+    }
+
+    .hero-banner {
+        width: 100%;
+        height: 70vh;
+    }
+
+    .overlay {
+        width: 100%;
+        height: 70vh;
+    }
+}

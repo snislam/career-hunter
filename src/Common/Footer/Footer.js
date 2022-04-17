@@ -4,7 +4,7 @@ import './Footer.css';
 const Footer = () => {
     return (
         <div className='bg-slate-800 pt-14 text-slate-400'>
-            <div className='grid grid-cols-3 gap-5 container mx-auto'>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-5 container mx-auto px-10'>
                 <div>
                     <h3 className='text-2xl font-medium text-slate-200 pb-4'>My Vission</h3>
                     <p>This Career Hunter Program will give you the perfect matching for bringing your dream position. My goal is to provide the right path for the destination.</p>
