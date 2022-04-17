@@ -9,8 +9,8 @@ const Header = () => {
             <nav className='flex justify-between items-center px-20 py-5 shadow'>
                 <img src={logo} alt="" />
                 <menu>
-                    <Link to='/'>Home</Link>
-                    <Link to='/login'>Login</Link>
+                    <Link className='hover:text-blue-600' to='/'>Home</Link>
+                    <Link className='hover:text-blue-600' to='/login'>Login</Link>
                 </menu>
             </nav>
         </div>
