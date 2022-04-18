@@ -16,7 +16,7 @@ const Register = () => {
         user,
         loading,
         error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
     const [signInWithGoogle, googleUser, googleLoading, googleErr] = useSignInWithGoogle(auth);
 
