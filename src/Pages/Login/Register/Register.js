@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Register.css';
 import google from '../../../images/google.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSendPasswordResetEmail, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const Register = () => {
@@ -19,12 +19,13 @@ const Register = () => {
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
     const [signInWithGoogle, googleUser, googleLoading, googleErr] = useSignInWithGoogle(auth);
+    const [sendPasswordResetEmail, , resetError] = useSendPasswordResetEmail(auth);
 
     useEffect(() => {
-        if (error || googleErr) {
-            setErr(error || googleErr);
+        if (error || googleErr || resetError) {
+            setErr(error || googleErr || resetError);
         }
-    }, [error, googleErr])
+    }, [error, googleErr, resetError])
 
     if (loading || googleLoading) {
         return (
@@ -55,6 +56,14 @@ const Register = () => {
         signInWithGoogle();
     }
 
+    const handleReset = () => {
+        if (email) {
+            sendPasswordResetEmail(email);
+        } else {
+            console.log('Please enter an email!')
+        }
+    }
+
     return (
         <div className='flex justify-center items-center my-5 w-full h-screen'>
             <div className='border mx-auto w-3/5 md:w-2/5 relative shadow-lg p-10'>
@@ -72,6 +81,8 @@ const Register = () => {
                     <p className='text-red-500 mt-5'>{err?.message}</p>
 
                     <p className='mt-5'>New in Career Hunter? <Link className='text-blue-500' to='/login' >Login Now</Link></p>
+
+                    <p className='text-normal my-3'>Forgot password? <span className='text-blue-600 cursor-pointer' onClick={handleReset}>Reset Now</span></p>
 
                     <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700' type="submit" value="Register" />
                 </form>

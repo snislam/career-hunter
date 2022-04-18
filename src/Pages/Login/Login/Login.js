@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Login.css';
 import google from '../../../images/google.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const Login = () => {
@@ -12,6 +12,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
+    const [sendPasswordResetEmail, , resetError] = useSendPasswordResetEmail(auth);
 
     //handle email
     const handleEmail = e => {
@@ -32,10 +33,10 @@ const Login = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleErr] = useSignInWithGoogle(auth);
 
     useEffect(() => {
-        if (error || googleErr) {
-            setErr(error || googleErr);
+        if (error || googleErr || resetError) {
+            setErr(error || googleErr || resetError);
         }
-    }, [error, googleErr])
+    }, [error, googleErr, resetError])
 
     if (loading || googleLoading) {
         return (
@@ -58,6 +59,14 @@ const Login = () => {
         signInWithGoogle();
     }
 
+    const handleReset = () => {
+        if (email) {
+            sendPasswordResetEmail(email);
+        } else {
+            console.log('Please enter an email!')
+        }
+    }
+
     return (
         <div className='flex justify-center items-center w-full h-[90vh]'>
             <div className='border mx-auto w-3/5 md:w-2/5 relative shadow-lg p-10'>
@@ -73,6 +82,8 @@ const Login = () => {
                     <p className='text-red-500 mt-5'>{err?.message}</p>
 
                     <p className='mt-5'>New in Career Hunter? <Link className='text-blue-500' to='/register' >Register Now</Link></p>
+
+                    <p className='text-normal my-3'>Forgot password? <span className='text-blue-600 cursor-pointer' onClick={handleReset}>Reset Now</span></p>
 
                     <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700 cursor-pointer' type="submit" value="Login" />
                 </form>
