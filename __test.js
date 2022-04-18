@@ -6,20 +6,36 @@ import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-fireba
 import auth from '../../../firebase.init';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [err, setErr] = useState('');
+    const [email, setEmail] = useState({ value: '', myError: '' });
+    const [password, setPassword] = useState({ value: '', myError: '' });
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
     //handle email
-    const handleEmail = e => {
-        setEmail(e.target.value);
+    const handleEmail = event => {
+        const emailValue = event.target.value
+        if (/\S+@\S+\.\S+/.test(emailValue)) {
+            setEmail({ value: emailValue, myError: "" });
+        } else {
+            setEmail({ value: "", myError: "Please Provide a valid Email" });
+        }
     }
+
     //handle password
-    const handlePassword = e => {
-        setPassword(e.target.value);
+    const handlePassword = event => {
+        const passwordValue = event.target.value
+        if (passwordValue.length < 6) {
+            setPassword({ value: "", myError: "Password not match" });
+        }
+        else if (!/(?=.*[A-Z])/.test(passwordValue)) {
+            setPassword({
+                value: "", myError: "Password not match",
+            });
+        }
+        else {
+            setPassword({ value: passwordValue, myError: "" });
+        }
     }
 
     const [
@@ -33,7 +49,7 @@ const Login = () => {
 
     useEffect(() => {
         if (error || googleErr) {
-            setErr(error || googleErr);
+            setPassword(error);
         }
     }, [error, googleErr])
 
@@ -67,12 +83,16 @@ const Login = () => {
                     <label className='font-semibold my-3' htmlFor="email">Email Address</label>
                     <input onBlur={handleEmail} className='border block w-full py-2 px-3' type="email" name="email" id="email" placeholder='Email address' required />
 
+                    {email?.myError && <p>{email.myError}</p>}
+
                     <label className='font-semibold my-3' htmlFor="password">Password</label>
                     <input onBlur={handlePassword} className='border block w-full py-2 px-3' type="password" name="password" id="password" placeholder='Password' required />
 
-                    <p className='text-red-500 mt-5'>{err?.message}</p>
+                    {password?.myError && <p>{password.myError}</p>}
 
                     <p className='mt-5'>New in Career Hunter? <Link className='text-blue-500' to='/register' >Register Now</Link></p>
+
+                    {/* <p className='text-red-500'>{err?.message}</p> */}
 
                     <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700 cursor-pointer' type="submit" value="Login" />
                 </form>
