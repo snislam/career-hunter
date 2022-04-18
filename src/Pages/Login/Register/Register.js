@@ -1,24 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Register.css';
 import google from '../../../images/google.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
 
 const Register = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [err, setErr] = useState('');
+    const navigate = useNavigate();
+
+    const [
+        createUserWithEmailAndPassword,
+        user,
+        loading,
+        error,
+    ] = useCreateUserWithEmailAndPassword(auth);
+
+
+
+    if (error) {
+        setErr(error.message);
+    }
+
+    if (loading) {
+        return (
+            <div className='flex justify-center items-center w-full h-screen'>
+                <p className='text-5xl font-semibold'>Loading.......</p>
+            </div>
+        )
+    }
+
+    if (user) {
+        navigate('/');
+    }
+
+    const handleEmail = e => {
+        setEmail(e.target.value);
+    }
+
+    const handlePassword = e => {
+        setPassword(e.target.value);
+    }
+
+    const handleSubmitRegister = e => {
+        e.preventDefault();
+        createUserWithEmailAndPassword(email, password);
+    }
+
     return (
         <div className='flex justify-center items-center w-full h-screen'>
             <div className='border mx-auto w-3/5 md:w-2/5 relative shadow-lg p-10'>
                 <h2 className='text-3xl font-semibold mb-5 text-center text-blue-700'>Please Register</h2>
-                <form>
+                <form onSubmit={handleSubmitRegister}>
                     <label className='font-semibold my-3' htmlFor="name">Enter your name</label>
                     <input className='border block w-full py-2 px-3' type="text" name="name" id="name" placeholder='Enter your name' required />
 
                     <label className='font-semibold my-3' htmlFor="email">Email Address</label>
-                    <input className='border block w-full py-2 px-3' type="email" name="email" id="email" placeholder='Email address' required />
+                    <input onBlur={handleEmail} className='border block w-full py-2 px-3' type="email" name="email" id="email" placeholder='Email address' required />
 
                     <label className='font-semibold my-3' htmlFor="password">Password</label>
-                    <input className='border block w-full py-2 px-3' type="password" name="password" id="password" placeholder='Password' required />
+                    <input onBlur={handlePassword} className='border block w-full py-2 px-3' type="password" name="password" id="password" placeholder='Password' required />
 
                     <p className='mt-5'>New in Career Hunter? <Link className='text-blue-500' to='/login' >Login Now</Link></p>
+
+                    <p className='text-red-500'>{err}</p>
 
                     <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700' type="submit" value="Register" />
                 </form>
