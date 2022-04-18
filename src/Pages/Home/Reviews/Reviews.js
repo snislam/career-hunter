@@ -47,7 +47,7 @@ const Reviews = () => {
     return (
         <div className='mt-10'>
             <h2 className='text-center text-5xl font-bold'>Reviews by Clients</h2>
-            <Slider {...settings} className='mb-16 mt-10'>
+            <Slider {...settings} className='mb-16 mt-10 container p-5 mx-auto'>
                 {
                     reviews.map(review => <Review key={review.id} review={review} />)
                 }
