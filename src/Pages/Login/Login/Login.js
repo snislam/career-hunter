@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import google from '../../../images/google.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const Login = () => {
@@ -11,7 +11,7 @@ const Login = () => {
     const [err, setErr] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from?.pathname || '/';
+    const from = location.state?.from?.pathname || "/";
 
     const [
         signInWithEmailAndPassword,
@@ -20,9 +20,7 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-    if (error) {
-        setErr(error.message);
-    }
+    const [signInWithGoogle, googleUser, googleLoading, googleErr] = useSignInWithGoogle(auth);
 
     if (loading) {
         return (
@@ -30,6 +28,14 @@ const Login = () => {
                 <p className='text-5xl font-semibold'>Loading.......</p>
             </div>
         )
+    }
+
+    if (error) {
+        setErr(error?.message);
+    }
+
+    if (googleErr) {
+        setErr(googleErr?.message)
     }
 
     if (user) {
@@ -47,6 +53,10 @@ const Login = () => {
     const handleSubmitLogin = e => {
         e.preventDefault();
         signInWithEmailAndPassword(email, password);
+    }
+
+    const handleGoogleLogin = e => {
+        signInWithGoogle();
     }
 
     return (
@@ -72,7 +82,7 @@ const Login = () => {
                     <div className='divider'></div>
                 </div>
                 <div className="social-login">
-                    <button className='bg-white hover:bg-slate-100 duration-700 py-2 px-5 border-2 flex justify-center items-center w-full'>
+                    <button onClick={handleGoogleLogin} className='bg-white hover:bg-slate-100 duration-700 py-2 px-5 border-2 flex justify-center items-center w-full'>
                         <img className='w-[30px] mr-4' src={google} alt="" />
                         <span>Continue With Google</span>
                     </button>

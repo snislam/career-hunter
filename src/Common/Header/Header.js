@@ -11,14 +11,14 @@ const Header = () => {
     return (
         <div className='sticky top-0 bg-white z-10'>
             <nav className='flex justify-between items-center px-20 py-5 shadow'>
-                <img src={logo} alt="" />
+                <a href="/"><img src={logo} alt="" /></a>
                 <menu>
                     <Link className='hover:text-blue-600' to='/'>Home</Link>
                     <Link className='hover:text-blue-600' to='/about'>About Me</Link>
                     <Link className='hover:text-blue-600' to='/contact'>Contact</Link>
                     {
                         user ?
-                            <a className='hover:text-blue-600 cursor-pointer' onClick={() => signOut(auth)}>Signout</a>
+                            <button className='hover:text-blue-600 font-semibold ml-[20px] cursor-pointer' onClick={() => signOut(auth)}>Signout</button>
                             :
                             <Link className='hover:text-blue-600' to='/login'>Login</Link>}
                 </menu>

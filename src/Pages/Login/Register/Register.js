@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import './Register.css';
 import google from '../../../images/google.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 
 const Register = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [err, setErr] = useState('');
     const navigate = useNavigate();
 
     const [
@@ -18,11 +17,7 @@ const Register = () => {
         error,
     ] = useCreateUserWithEmailAndPassword(auth);
 
-
-
-    if (error) {
-        setErr(error.message);
-    }
+    const [signInWithGoogle, googleUser, googleLoading, googleErr] = useSignInWithGoogle(auth);
 
     if (loading) {
         return (
@@ -49,6 +44,10 @@ const Register = () => {
         createUserWithEmailAndPassword(email, password);
     }
 
+    const handleGoogleLogin = e => {
+        signInWithGoogle();
+    }
+
     return (
         <div className='flex justify-center items-center w-full h-screen'>
             <div className='border mx-auto w-3/5 md:w-2/5 relative shadow-lg p-10'>
@@ -65,7 +64,7 @@ const Register = () => {
 
                     <p className='mt-5'>New in Career Hunter? <Link className='text-blue-500' to='/login' >Login Now</Link></p>
 
-                    <p className='text-red-500'>{err}</p>
+                    <p className='text-red-500'>{error}{googleErr}</p>
 
                     <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700' type="submit" value="Register" />
                 </form>
@@ -75,7 +74,7 @@ const Register = () => {
                     <div className='divider'></div>
                 </div>
                 <div className="social-login">
-                    <button className='bg-white hover:bg-slate-100 duration-700 py-2 px-5 border-2 flex justify-center items-center w-full'>
+                    <button onClick={handleGoogleLogin} className='bg-white hover:bg-slate-100 duration-700 py-2 px-5 border-2 flex justify-center items-center w-full'>
                         <img className='w-[30px] mr-4' src={google} alt="" />
                         <span>Continue With Google</span>
                     </button>
