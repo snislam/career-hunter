@@ -4,6 +4,8 @@ import google from '../../../images/google.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -63,7 +65,7 @@ const Login = () => {
         if (email) {
             sendPasswordResetEmail(email);
         } else {
-            console.log('Please enter an email!')
+            toast('Please enter an email!')
         }
     }
 
@@ -87,6 +89,7 @@ const Login = () => {
 
                     <input className='bg-blue-400 hover:bg-blue-600 py-2 px-5 mt-5 block text-center w-full duration-700 cursor-pointer' type="submit" value="Login" />
                 </form>
+                <ToastContainer />
                 <div className='flex justify-center items-center my-5'>
                     <div className='divider'></div>
                     <div className='px-3'>OR</div>
