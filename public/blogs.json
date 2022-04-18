@@ -1,0 +1,20 @@
+[
+    {
+        "id": 101,
+        "author": "Najmul",
+        "question": "Authentication vs Authorization.",
+        "answer": "Authentication is system by which you are tested to check validity. If you are an existing user or not. If yes, then password are matched or not. If all are okay then you can access. On the other hand, authorization is the checking station about your power or which data can you use or access. So the basic difference is authentication check user credential check and authorization check the user role."
+    },
+    {
+        "id": 102,
+        "author": "Najmul",
+        "question": "Why are you use firebase? Alternative options?",
+        "answer": "Firebase is an authetication system which is made and maintain by Google. We basically use Firebase for authentication and hosting. Beside this We can use analytics also for app, web, game etc system.<br/> Some authentication systems are - 1) Stichy 2) Ory 3) Supabase 4)Okta 5) PingIdentity 6) Auth0 7) On login etc."
+    },
+    {
+        "id": 103,
+        "author": "Najmul",
+        "question": "Other services by fireabse rather than authentication.",
+        "answer": "Firebase provide hosting system, analytics sytem, real time database, storage system, cloud functionality, emulator services and so on.This provide various services based on web, android, app, game etc. This is a dedicated google product for using this beside authentication services."
+    }
+]
